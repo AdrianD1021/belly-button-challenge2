@@ -1,8 +1,10 @@
+const url = "https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json"
+
 function init() {
-  // Select the dropdown element
+  // Creating the dropdown
   var selector = d3.select("#selDataset");
   
-  // Populate the dropdown with subject ID's from the list of sample Names
+  // Filling the dropdown with subject IDs from the list of sample Names
     d3.json("data/samples.json").then((data) => {
       var subjectIds = data.names;
       subjectIds.forEach((id) => {
@@ -12,7 +14,7 @@ function init() {
         .property("value", id);
       });
     
-    // Use the first subject ID from the names to build initial plots
+    // Use the first subject ID from names
     const firstSubject = subjectIds[0];
     updateCharts(firstSubject);
     updateMetadata(firstSubject);
@@ -32,7 +34,7 @@ function updateMetadata(sample) {
           metaPanel.append("h6").text(`${key.toUpperCase()}: ${value}`)
       })
   
-// Data for Gauge Chart
+// Filling in data for Gauge Chart
   var data = [
     {
       domain: { x: [0, 1], y: [0, 1] },
@@ -44,7 +46,7 @@ function updateMetadata(sample) {
       mode: "gauge+number"
     }
   ];
-  // Layout for Gauge Chart
+  // Setting the Layout
 
   var layout = {
     width: 450,
@@ -59,9 +61,7 @@ function updateMetadata(sample) {
 
   
   Plotly.newPlot("gauge", data, layout);
-// Use `Object.entries` to add each key and value pair to the metaPanel
-// Hint: Inside the loop, you will need to use d3 to append new
-// tags for each key-value in the metadata.
+
   });
 }
 
